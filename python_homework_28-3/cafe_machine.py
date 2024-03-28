@@ -1,4 +1,4 @@
-# Coffee Extra
+# Coffee
 
 # Constants
 menu = {
