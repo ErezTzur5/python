@@ -43,26 +43,24 @@ def run():
 
 
 def formatter(data:str):
-    # Split the string into parts
+    """
+    This func split the string into parts then it checks if there are exactly two parts, its split the date part into day, month and year.
+    """
+
     parts = data.split(' ')
     
 
-    # Check if there are exactly two parts
     if len(parts) == 2:
         date_part, time_part = parts
         
-        
-        # Split the date part into day, month, and year
         date_parts = date_part.split('-')
         
-        # Check if the date part has three parts
         if len(date_parts) == 3:
             day, month, year = date_parts
-            
-            # Split the time part into hour and minute
+
             time_parts = time_part.split(':')
             
-            # Check if the time part has two parts
+
             if len(time_parts) == 2:
                 hour, minute = time_parts
                 
