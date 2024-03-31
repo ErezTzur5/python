@@ -36,7 +36,7 @@ class Plane:
                 time.sleep(2)  #Simulate takeoff
             
             self.fuel -= required_fuel
-            flight_time = required_fuel / 100  # Time in seconds
+            flight_time = required_fuel / 100  #Time in seconds
             print(f"Flying {distance} km to {place}. Estimated flight time: {flight_time} seconds.")
             
             time.sleep(2)
