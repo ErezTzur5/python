@@ -62,9 +62,8 @@ class Quiz:
         print(f""" Hello, {self.current_player}
         
 Welcome to the Python Quiz Game!
-You will be presented with multiple-choice questions. Enter the letter
-corresponding to your answer.
-
+You will be presented with multiple-choice questions. 
+Enter the number corresponding to your answer.
 """)
         
     def get_questions_from_api(self, amount=10, category=27, difficulty="hard", question_type="multiple"):
@@ -142,35 +141,55 @@ corresponding to your answer.
         print(f'Game Duration was:' " {:.2f} seconds".format(game_duration))
         return False
 
-    def start_game(self):
+    def start_game(self,level_of_game:str):
         """
         Starting the game.
         """
         game = True
         quizer.print_welcome()
         while game is True:
-            ask = quizer.questions_from_api()
+            ask = quizer.questions_from_api(difficulty=level_of_game)
             if ask is False:
-                new_exit = True
-                while new_exit is True:
+                new_or_exit = True
+                while new_or_exit is True:
                     new_game = input("""
     Do you want to start a [N]ew game or [E]xit ?
     """).lower()
                     if new_game == 'n':
                         print("Starting a new game! ")
-                        new_exit - False
+                        new_or_exit - False
                         break
                     elif new_game == 'e':
                         print("Exiting the game! ")
-                        new_exit - False
+                        new_or_exit - False
                         return
                     else:
                         print("Please enter N for new game or E to exit")
                         
-
-
-  
-
 name = input("Please enter your name: ")
+
+while True:
+    level_of_game = input("""Please enter difficulty: 
+1.Easy
+2.Medium
+3.Hard
+""").lower()
+    
+    print('level_of_game',level_of_game)
+    if level_of_game == '1':
+        print("Adjust the level of game to Easy mode.")
+        level_of_game = 'easy'
+        break
+    elif level_of_game == '2':
+        print("Adjust the level of game to Medium mode.")
+        level_of_game = 'medium'
+        break
+    elif level_of_game == '3':
+        print("Adjust the level of game to Hard mode.")
+        level_of_game = 'hard'
+        break
+    else:
+        print("Please choose the difficulty level by pressing number from 1-3")
+
 quizer = Quiz(name)
-quizer.start_game()
+quizer.start_game(level_of_game)
