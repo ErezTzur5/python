@@ -1,3 +1,6 @@
 Game 1 results:
 erez vs tomer - 0 wins for erez, 1 wins for tomer, duration: 16.00 seconds
 
+Game 1 results:
+tomer vs erez - 1 wins for tomer, 0 wins for erez, duration: 31.40 seconds
+
