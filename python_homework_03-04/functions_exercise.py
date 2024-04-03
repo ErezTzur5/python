@@ -1,3 +1,5 @@
+import math
+
 #21
 # start_range = int(input("Please enter a number to start the range: "))
 # end_range = int(input("Please enter a number to end the range: "))
@@ -29,10 +31,7 @@ def check_sequance(ls:list):
 
     
 #24
-
-import math
-
-def calculate_area(shape, *args):
+def calculate_shape(shape, *args): #taking args here cause shape of items can be multiple values to pass.
     if shape == 'square':
         side = args[0]
         return side * side
@@ -45,10 +44,10 @@ def calculate_area(shape, *args):
     else:
         return "Unsupported shape"
 
-# print(calculate_area('square', 5))
-# print(calculate_area('rectangle', 4, 6))
-# print(calculate_area('circle', 3))
-# print(calculate_area('triangle', 3, 4, 5))
+print(calculate_shape('square', 5))
+print(calculate_shape('rectangle', 4, 6))
+print(calculate_shape('triangle', 3, 4, 5))
+
 
 
 #27
@@ -80,5 +79,7 @@ def dict_checker(key_check, new_dict: dict):
         new_dict[key_check] = ''
         print(f"{key_check} was added to the dict ")
     return new_dict
-a = dict_checker("erezz", new_dict)
-print(a)
+
+
+# a = dict_checker("erezz", new_dict)
+# print(a)
