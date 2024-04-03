@@ -1,4 +1,5 @@
 import time
+import requests
 all_questions = {
     "What is the capital of France?": {
         "options": {
@@ -53,6 +54,7 @@ class Quiz:
         self.current_player = current_player
     
     def print_welcome(self):
+
         """
         This func prints the user name and welcoming.
 
@@ -64,6 +66,59 @@ You will be presented with multiple-choice questions. Enter the letter
 corresponding to your answer.
 
 """)
+        
+    def get_questions_from_api(self, amount=10, category=27, difficulty="hard", question_type="multiple"):
+        """
+        This func gets the questions from the api , takes the amount category and difficulty as variables so the player
+        can change the difficulty or the number of questions
+        """
+        url = f"https://opentdb.com/api.php?amount={amount}&category={category}&difficulty={difficulty}&type={question_type}"
+        response = requests.get(url)
+        data = response.json()
+        return data['results']
+    
+    def questions_from_api(self, amount=10, category=27, difficulty="hard", question_type="multiple"):
+        """
+        This func gets from the get question func the data and do a for loop for every question.
+        this func indicates if the user is right or wrong and returns false at the end so we can proccess more actions later.
+        """
+        questions = self.get_questions_from_api(amount, category, difficulty, question_type)
+        correct_answers = 0
+        total_questions = len(questions)
+        start_time = time.time()
+
+        for idx, question_data in enumerate(questions, 1): # run on index and the questions data one by one
+            print(f"Question {idx}: {question_data['question']}")
+            options = question_data['incorrect_answers'] + [question_data['correct_answer']] # getting the questions answers right or wrong.
+            for i, option in enumerate(options, 1):
+                print(f"{i}. {option}")
+            
+            answer = True
+            while answer is True:
+                try:
+                    user_answer = input("Your answer (1, 2, 3, 4): ")
+                    convert = int(user_answer)
+                    if convert > 4:
+                        print("You must enter a number from 1-4")
+                    else:
+                        answer = False
+                except ValueError:
+                    print("Please enter digit and not a string")
+
+            correct_answer_index = options.index(question_data['correct_answer']) + 1
+            if user_answer == str(correct_answer_index):
+                print("Correct!")
+                correct_answers += 1
+            else:
+                print(f"Wrong! The correct answer is: {correct_answer_index}")
+
+        print(f"\nHey {self.current_player}, you got {correct_answers} out of {total_questions} questions correct.")
+        end_time = time.time()
+        game_duration = end_time - start_time
+        print(f'Game duration: {game_duration:.2f} seconds')
+
+        return False    
+    
     def questions(self, question_dict: dict):
         correct_answers = 0
         total_questions = len(question_dict)
@@ -94,7 +149,7 @@ corresponding to your answer.
         game = True
         quizer.print_welcome()
         while game is True:
-            ask = quizer.questions(all_questions)
+            ask = quizer.questions_from_api()
             if ask is False:
                 new_exit = True
                 while new_exit is True:
